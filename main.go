@@ -160,8 +160,14 @@ func formatDefinitions(definitions []Definitions) (string, error) {
 	for i := 0; i < len(definitions); i++ {
 		var definitionString string
 		var definitionTextBoldTitle string = textFormat(fmt.Sprintf("Definition %d:", i+1), underlined)
+		var exampleTextTitle string = textFormat("Example:", underlined)
 
-		definitionString = fmt.Sprintf("  %s: \n  %s\n", definitionTextBoldTitle, definitions[i].Definition)
+		definitionString = fmt.Sprintf("  %s \n  %s", definitionTextBoldTitle, definitions[i].Definition)
+		if definitions[i].Example != "" {
+			definitionString = fmt.Sprintf("%s \n  %s", definitionString, fmt.Sprintf("%s %s", exampleTextTitle, definitions[i].Example))
+		}
+
+		definitionString += "\n"
 
 		stringOutput = fmt.Sprintf("%s%s", stringOutput, definitionString)
 
